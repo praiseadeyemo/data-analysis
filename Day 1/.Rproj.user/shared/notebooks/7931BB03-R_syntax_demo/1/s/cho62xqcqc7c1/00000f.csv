@@ -1,0 +1,6 @@
+"0","df <- data.frame(face = c(""ace"", 10, 7, ""joker""),"
+"0","                 suit = c(""clubs"", ""clubs"", ""clubs"", ""hearts""),"
+"0","                 value = c(1, 2, 3, 4.5),"
+"0","                 red = c(TRUE, FALSE, FALSE, TRUE),"
+"0","                 black = c(FALSE, TRUE, 1, FALSE))"
+"0","df"

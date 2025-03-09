@@ -1,0 +1,122 @@
+---
+title: "P.A_chapter_2"
+author: "PRAISE"
+date: "2024-09-27"
+output:
+  word_document: default
+  html_document: default
+---
+
+###############################################################################
+# Intro to R Class - Day 2 #
+# Friday, 27th September, 2024#
+###############################################################################
+# Learning R from scratch using the R Beginners' Textbook by Beckerman et al (2017) #
+# Script for Chapter 2 #
+###############################################################################
+# Created by P.A. on 27/09/2024, last modified on 30/09/2024 #
+###############################################################################
+
+```{r}
+
+# Getting started with importing data in preparation for data analysis
+library(readr)
+compensation <- read.csv("/Users/praiz1/Documents/UofG PhD Masterfile/KRS 2024/Intro_to_R/Data sets/compensation.csv") #to find path containing data file
+View(compensation) #to view data
+
+
+# Alternative
+file.choose("/Users/praiz1/Documents/UofG PhD Masterfile/KRS 2024/Intro_to_R/Data sets/compensation.csv") #manual selection of file from Macbook 
+compensation <- read.csv("/Users/praiz1/Documents/UofG PhD Masterfile/KRS 2024/Intro_to_R/Data sets/compensation.csv") #code for R to read the data file. <- was used to import the data into an "object" and in this case, "compensation" is the object
+
+# What if I don't want to use a file path because things can change?!
+# I will go ahead to set a working directory: 
+# To do this, I'll go to the Session option on the tool bar in R -> click on Set Working Directory -> select Choose Directory. This will point RStudio's eyes at a folder in a specific location
+# So I can just go ahead to specify the file name I want to access as long as it is in the specific working directory. I'll do this by: see line 38 below 
+read.csv("compensation.csv") #the advantage of this is that I don't need to update my file paths if I move folders!
+
+# Confirming the data
+names (compensation) #to check the variable names or column headings
+head (compensation) #to check data in first 6 rows
+tail (compensation) #to check data in last 6 rows
+dim (compensation) #to check data dimension - numbers of rows and columns
+str (compensation) #to check full data features. Please note that rows are called 'observations', while columns are called 'variables'
+
+# Using functions in dplyr (a package installed earlier in chapter 1)
+glimpse() #provides horizontal view of data
+# R returned an error. Please note that you need to recall a package from the library before using it and for each function, file name or specific data set needs to be specified
+library(dplyr)
+glimpse(compensation) #provides horizontal view of data
+tbl_df(compensation) #provides vertical view
+# Correcting the code in line 51 since the function 'tbl_df' is deprecated
+tibble::as_tibble(compensation) #provides vertical view
+```
+
+```{r}
+#Activity on dealing with untidy data
+library(readr)
+nasty.format <- read.csv("/Users/praiz1/Documents/UofG PhD Masterfile/KRS 2024/Intro_to_R/Data sets/nasty format.csv")
+# Please note that error seen in Console was because the object assigned to the file was nasty.format and I had written a code names (nastyformat). Important to be careful with object names and stick to them to avoid errors
+names (nasty.format)
+# Data is indeed untidy as variables are not well defined
+dim (nasty.format)
+str (nasty.format)
+# Code in line 62 showed that this data has 37 observations and 11 variables
+# Code in line 63 showed the full features of the data set
+# [view (nasty.format) #to view the full data set] was initially written as an argument but R returned an error that the function "view" could not be found. 
+
+#Please, also note that packages relevant for functions need to be recalled from the library
+library(dplyr)
+glimpse (nasty.format) #horizontal view of data
+tibble::as_tibble (nasty.format) #vertical view of data
+
+library(dplyr)
+nasty.format <- filter(nasty.format, Bottle != "") #to keep only rows that have an entry in the Bottle variable
+glimpse(nasty.format)
+
+library(tidyr)
+tidy_data <- gather(nasty.format, Date, Abundance, 4:11) #to tidy up the data and rename it tidy_data. New variables containing "date" and "abundance" are to be created, and specifically for columns 4 to 11
+glimpse(tidy_data)
+
+
+# Cleaning the new variable "Date"
+# The "date" variable has an 'X' in front of the dates and we need R to recognize these as dates
+library(stringr)
+tidy_data <- mutate(tidy_data, Date = substr(Date, 2, 20)) #to further clean the variable and arrange the dates in each observation for the second month and within year "20"
+# mutate() function is used to change or add variables, substr() function is used to specify the variable, which character to keep and the end date
+unique(tidy_data$Date) #to show all the unique dates in the variable
+# unique() returns a list of unique values in  a specific set of columns in a dataframe
+library(lubridate) #package contains different formats for data e.g. ymd, dmy, myd etc
+tidy_data <- mutate(tidy_data, Date = dmy(Date)) #to specify the date format
+glimpse(tidy_data) #to view the edits made by R to the data
+# R returned a data set with date in the ymd format. Not sure if this is an inverted response. Was expecting to see 01-02-2013 and not 2013-02-01
+tidy_data <- mutate(tidy_data, Date = ymd(Date)) #rewriting the argument to specify the date format
+glimpse(tidy_data)
+# date still having the ymd format
+# [tidy_data <- mutate(tidy_data, Date = mdy(Date))] returned an error - all formats failed to parse
+```
+
+```{r}
+# Playing with the data
+library(ggplot2) #package used for graphs and visualizations generally
+ggplot(data = tidy_data, aes(x=Date, y=Abundance)) + #data is the specific dataset we want to visualize, 'aes' is used to define which variables (columns) we want for our x and y axis
+  geom_point() + #function used to create scatterplots - most useful for displaying the relationship between two continuous variables
+  facet_wrap(~Bottle) #specifying which variable we want the x and y axis to be about
+```
+
+```{r}
+# More ways to tidy data
+library(base)
+library(tidyr)
+library(dplyr)
+
+#[tidy_data <- spread(tidy_data, Abundance) #testing what this function does] returned an error. The next set of functions are for the initial untidy data, i.e. nasty.format
+testing.more.functions.data <- spread(nasty.format, Temp)
+testing.more.functions.data <- spread(nasty.format)
+testing.more.functions.data <- spread(nasty.format, Temp)
+#not sure how to use spread() function
+testing.more.functions.data <- separate()
+?separate
+
+```
+

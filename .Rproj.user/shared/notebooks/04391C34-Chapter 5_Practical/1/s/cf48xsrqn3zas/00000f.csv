@@ -1,0 +1,4 @@
+"0","#trying out what will happen without including the aes position"
+"0","ggplot(totals, aes(x = Habitat, y = total.number,"
+"0","    fill = morph_colour)) +"
+"0","geom_bar(stat = 'identity')"

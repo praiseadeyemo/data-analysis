@@ -1,0 +1,40 @@
+---
+title: "playing with gardenOzone"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+
+```{r}
+GardenOzone <- read_csv("GardenOzone.csv")
+show_col_types = FALSE
+View(GardenOzone)
+str(GardenOzone)
+
+#Data set contains three variables; ozone - a continuous variable, garden location - an ordinal categorical variable with two levels (East and West), and a nominal categorical variable
+
+#Defining variables
+#Response variable: Ozone
+#Explanatory variables: Garden location
+
+#Hypothesis to explore
+#H0: Ozone level of the garden does not depend on the garden's location
+#Ha: Ozone level of the garden depends on the garden's location
+
+#Picturing the data set 
+library(ggplot2)
+ggplot(data = GardenOzone, aes(x=Garden.location, y=Ozone)) +
+  geom_boxplot() #since Garden.location is a categorical data, a box plot is needed
+
+```
+
+```{r}
+#Revision: fitting a model (recap from GLM classes)
+library(readr)
+Model<-lm(Ozone~Garden.location,data=GardenOzone)
+anova(Model)
+summary(Model)
+```
+
+

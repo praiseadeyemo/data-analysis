@@ -1,0 +1,3 @@
+"0","# the aesthetic 'fill = morph_colour' was used here because we want to see our geometry output as a bar, and these bars can be filled with a colour. Using 'colour = morph_colour' will alter the outlines of the bar, so not advisable to use that aesthetic"
+"0","#stat = 'identity' tells ggplot not to make any calculations"
+"0","#position = 'dodge' helped us to have the two bars for habitat group next to each other; if we didn't specify that, we would have a stacked barplot"
