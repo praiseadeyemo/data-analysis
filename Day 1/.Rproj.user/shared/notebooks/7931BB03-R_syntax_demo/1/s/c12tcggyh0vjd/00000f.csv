@@ -1,6 +1,0 @@
-"0","sex <- factor(c(""male"", ""female"", ""female"", ""male"")) # need to explicitly specify if we want this to be treated as a categorical variable"
-"0","class(sex)"
-"1","[1]"
-"1"," ""factor"""
-"1","
-"

@@ -1,3 +1,0 @@
-system("git --version")
-system("git config --global user.name 'praiseadeyemo'")
-system("git config --global user.email 'adeyemopraize@gmail.com'")

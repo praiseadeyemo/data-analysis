@@ -1,4 +1,0 @@
-"0","#using barchart to summarize data"
-"0","ggplot(totals, aes(x = Habitat, y = total.number,"
-"0","    fill = morph_colour)) +"
-"0","geom_bar(stat = 'identity', position = 'dodge')"

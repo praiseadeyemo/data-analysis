@@ -1,7 +1,0 @@
-"0","#5.2.4 - Fixing the colours"
-"0","#we want to ensure that the colours in the barchart are actually black and red as indicated in the data itself"
-"0",""
-"0","ggplot(totals, aes(x = Habitat, y = total.number,"
-"0","    fill = morph_colour)) +"
-"0","  geom_bar(stat = 'identity', position = 'dodge') +"
-"0","  scale_fill_manual(values = c(black = ""black"", red = ""red""))"
