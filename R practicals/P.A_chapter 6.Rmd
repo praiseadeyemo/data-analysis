@@ -1,0 +1,57 @@
+---
+title: Practical 5: Dog cortisol
+author: Praise Adeyemo
+date: 29th October 2024
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+
+```{r}
+setwd("~/Documents/UofG PhD Masterfile/KRS 2024/Intro_to_R/Day 5")
+
+library(readr)
+library(ggplot2)
+library(ggeffects)
+library(dplyr)
+library(tidyr)
+library(lubridate)
+
+DogCortisol <- read.csv("ASWEL - dog cort data/Dog cort.csv")
+View(DogCortisol)
+glimpse(DogCortisol)
+#data contains six variables; 'Week' 'Treatment' and 'Sex' variables are categorical data; 'Cortisol' and 'Time' are co-variates or continuous data
+#all the categorical data have 2 levels each
+
+#Research question: What is the association between treatment and week of treatment on the cortisol levels of the dogs?
+#H0: There is no association between treatment and week on cortisol levels
+#Ha: There is an association between treatment and week on cortisol levels
+ggplot(data = DogCortisol, aes(x = Week, y = Cortisol)) + 
+  geom_boxplot() #boxplot for categorical variable
+
+ggplot(data = DogCortisol, aes(x = Treatment, y = Cortisol)) + 
+  geom_boxplot()
+
+ggplot(data = DogCortisol, aes(x = Time, y = Cortisol)) + 
+  geom_boxplot()
+
+#Research question: What is the association between treatment and sex of dog on the cortisol levels of the dogs?
+#H0: There is no association between treatment and sex on cortisol levels
+#Ha: There is an association between treatment and sex on cortisol levels
+
+ggplot(data = DogCortisol, aes(x = Time, y = Cortisol)) +
+  geom_point() #scatterplot for covariates
+#it's difficult to explain the relationship between time and cortisol;
+
+
+#5.2.2. Organizing data for plotting and analysis
+#to summarise the data by habitat and morph colour
+totals <- ladybirds %>% 
+    group_by(Habitat, morph_colour) %>%
+    summarise(total.number = sum(number)) #total.number is the new column heading for the frequencies of the birds grouped by habitat and colour
+View(totals) #dataframe for summary is now called 'totals'
+totals
+
+```
+

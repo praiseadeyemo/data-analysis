@@ -1,0 +1,153 @@
+###############################################################################
+# Intro to R Class - Day 1 #
+# Wednesday, 25th September, 2024#
+###############################################################################
+# Learning R from scratch using the R Beginners' Textbook by Beckerman et al (2017) #
+# Script for Chapter 1 #
+###############################################################################
+# Created by P.A. on 25/09/2024, last modified on 27/09/2024 #
+###############################################################################
+
+# Using R as a giant calculator
+1+1 #prompt to perform simple addition
+2 * 4 #prompt to perform simple multiplication
+3/7 #prompt to perform simple division
+11.75 - 4.813 #prompt to perform simple subtraction
+10^2 #prompt to find the result of 10 raised to the power of 2
+log(10) #prompt to see how R interprets the equation log(x) 
+log10(10) #prompt to find the log of (x) to the base of 10 and compare with the prompt in line 17
+#kindly note that in R, log10(x) is not the same as log(x) as prompts in lines 17 and 18 above gave different results
+
+# Logical operators
+#R should return the result as "TRUE" for correct equations with the right logical operators and "FALSE" for incorrect equations
+7 < 10 #is 7 lesser than 10? 
+5 > 20 #is 5 greater than 20?
+20 == 10 * 2 #is 20 equal to the product of 10 and 2?
+50 != 100/2 #is 50 not equal to 100 divided by 2?
+45 + 15 >= 35 * 2 #is the sum of 45 and 15 greater than or equal to the product of 35 and 2?
+
+#Using functions
+seq(from = 0, to = 10, by = 1) #prompt to give the sequence of numbers that begin at 0, ends at 10, and has a difference of 1 between numbers in the sequence
+seq(from = 1, to = 10, by = 0.5) #argument to return the sequence of numbers that begin at 1, ends at 10, and has a difference of 0.5 between numbers in the sequence
+seq(from = 1, to = 100, by = 5) #argument to give the sequence of numbers that begin at 1, ends at 100, and has a difference of 5 between numbers in the sequence
+seq(from = 1, to = 100, by = 4) #repeating prompt in line 32 to see if it will show multiples of 5
+# please note, prompts can also be called arguments
+# also note that an equal to (=) symbol must follow the 'by' function for R to read the instruction accurately
+
+# Assigning variables
+x <- seq(from =1, to = 100, by = 4) #where x is assigned the answer to the prompt
+x #to see if R has mastered the assignment to x (prompt from line 38)
+
+# Working with vectors
+# recall that x was assigned the value in line 33
+# we want to assign the prompt from line 32 to y and then ask R to find the product of x and y
+y <- seq(from = 1, to = 100, by = 5)
+x * y #argument to find the product of x and y
+# both vectors must have the same object length, hence x * y returned an error
+x + y #argument to find the sum of x and y
+# although R gives an error for arguments in lines 45 and 47, it still goes ahead to perform the instruction
+
+# Clear R's brain
+rm(list = ls())
+
+
+# please note that user was already using the Script pane before the book chapter mentioned it on page 16
+
+
+# Considering the functions to be used in this book, authors have advised to download and run two essential packages
+# The two packages were initially installed from the library using the pane in the bottom right of R studio
+# Next prompt is to "install" these packages after download
+# See line 61 for annotation 
+# Make these packages and their associated functions available to use in this script
+library(dplyr)
+library(ggplot2)
+
+
+# In-depth play with plotting graphs and histograms
+?qplot() #to get help on how to use this function
+# in the bottom right pane, details on how to use the function open up
+# qplot() is now deprrecated and ggplot() is now advised
+?ggplot() #to get help on how to use this function
+
+
+# Ex. 1
+# Plot a graph with x^2 on the y-axis and x on the x-axis
+  
+library (ggplot2)
+
+x <- seq(from = -10, to = 10, by = 0.1) #argument to create a sequence of numbers from -10 to 10 with a difference of 0.1 between the numbers
+y <- x^2 #argument to assign y the value of x squared (x^2)
+qplot(x, y, geom="line") #quick plot x and y, with 'geom' as vector character specifying the geometric figures to draw
+# correcting the function in line 80 since qplot is deprecated
+x <- seq(from = -10, to = 10, by = 0.1) 
+y <- x^2 
+ggplot(x, y, geom_point="line") 
+# trying to correct the function for mapping 
+x <- seq(from = -10, to = 10, by = 0.1) 
+y <- x^2 
+ggplot(x, y, geom_point(mapping = aes(line)) 
+# rewriting the code for the argument, more like trying to see what works
+ggplot(x, y, aes(x = x, y = y)) +
+  geom_line(colour = "black", size = 1) +
+  labs(title = "Plot of y = x^2", x = "x", y = "y = x^2") +
+  theme_minimal()
+# R returned an error with code written from lines 90 - 93
+
+# Let's try again
+rm(list = ls()) # Clear R's brain
+
+x <- seq(from = -10, to = 10, by = 0.1) #argument to create a sequence of numbers from -10 to 10 with a difference of 0.1 between the numbers
+y <- x^2 #argument to assign y the value of x squared (x^2)
+df <-data.frame(x,y) #defining the data
+ggplot(data = df)+
+  geom_line(aes(x = "x", y = "y"), color = "blue")+
+  geom_line(aes(x = "x", y = "y"), color = "green) 
+# trying another code as seen on r-graph-gallery.com
+ggplot(df, aes(x = "x", y = "y")) + 
+  geom_line(color="blue",size=2) #to define the colour and size of the graph line
+  ggtitle("Plot of y = x^2) #to define the title of the graph
+  theme_ipsum() #to define the text or font style
+
+# yet another trial without annotation
+x <- seq(from = -10, to = 10, by = 0.1)
+y <- x^2
+df <-data.frame(x,y) 
+ggplot(df, aes(x = "x", y = "y")) +
+  geom_line(color="blue")
+  
+  
+  
+rm(list=ls()) #clearing R's brain
+
+seq(-10, 10, 5)
+x <- seq(-10, 10, 5)
+y <- x^2
+df <- data.frame(x,y)
+ggplot(df, aes(x="x",y="y")) +
+  geom_line(color="blue")
+
+
+#starting afresh
+rm(list=ls())
+
+x <- seq(from = -10, to = 10, by = 0.1) 
+y <- x^2 
+
+ggplot(data = df, aes(x=x, y=y))+
+  geom_line()
+  
+ggplot(aes(x=x$x, y=y$y))+
+  geom_line()
+
+ggplot(x, y, geom_point="line") 
+
+
+# starting afresh
+rm(list=ls())
+x <- seq(from = -10, to = 10, by = 0.1) 
+y <- x^2 
+df <- data.frame(x,y)
+ggplot(data = df, aes(x=x, y=y))+
+  geom_line()
+
+  
